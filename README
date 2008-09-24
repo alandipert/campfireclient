@@ -3,7 +3,15 @@ campfireclient-0.1dev
 Java API for connecting to Campfire,
 Command-line client using the API 
 ----------------------------------------------------
-ABOUT
+QUICKSTART
+----------------------------------------------------
+1. ant jar
+2. java -jar dist/campfireclient-0.1dev -u user@example.com
+-p somepass -s campfireSubDomain [-S use SSL]
+3. Presto!
+
+----------------------------------------------------
+OVERVIEW
 ----------------------------------------------------
 This package provides:
 
@@ -17,14 +25,6 @@ This package provides:
 
   Simple command-line Campfire client; Extends CampfireClient
   and shows how one might use the API to create a new client.
-
-----------------------------------------------------
-QUICKSTART
-----------------------------------------------------
-1. ant jar
-2. java -jar dist/campfireclient-0.1dev -u user@example.com
--p somepass -s campfireSubDomain [-S use SSL]
-3. Presto!
 
 ----------------------------------------------------
 TECHNICAL
