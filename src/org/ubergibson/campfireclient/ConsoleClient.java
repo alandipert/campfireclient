@@ -29,8 +29,8 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
     String user;
     String pass;
     String subdomain;
-    String useSSL = "no";
     user = pass = subdomain = "";
+    boolean useSSL = false;
 
     //shuts up log4j
     System.getProperties().put("org.apache.commons.logging.simplelog.defaultlog", "fatal");
@@ -50,7 +50,7 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
           subdomain = String.valueOf(g.getOptarg());
           break;
         case 'S':
-          useSSL = String.valueOf(g.getOptarg());
+          useSSL = true;
           break;
         case 'h':
           // fall through
@@ -66,21 +66,15 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
       usage();
     }
 
-    boolean usingSSL = false;
-    if(useSSL != "no") {
-      usingSSL = true;
-    }
-
-    if(usingSSL) {
+    if(useSSL) {
       System.out.println("Using SSL.");
     } else {
       System.out.println("Not using SSL.");
     }
 
-    ConsoleClient cc = new ConsoleClient(user, pass, subdomain, usingSSL);
+    ConsoleClient cc = new ConsoleClient(user, pass, subdomain, useSSL);
 
     System.out.println("Now connected to \""+subdomain+".campfirenow.com\"");
-    System.out.println("\nAvailable commands:\n/join <room>\n/quit\n");
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     String curLine = "";
     while((curLine = br.readLine()) != null) {
@@ -89,6 +83,8 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
       } else if(curLine.startsWith("/join")) {
         cc.joinRoom(curLine.substring(6));
         System.out.println("Now chatting in \""+curLine.substring(6)+"\"");
+      } else if(curLine.startsWith("/")) {
+        showCommands();
       } else {
         cc.sendMessage(curLine);
       }
@@ -97,4 +93,8 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
     cc.leaveCurrentRoom();
     cc.logOut();
   } 
+
+  private void showCommands() {
+    System.out.println("Available commands: /join <room>, /quit");
+  }
 }
