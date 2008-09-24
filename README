@@ -43,3 +43,33 @@ actually functions.  Advanced things like being in multiple
 rooms, receiving notifications about comings and goings of
 people in the room, and changing user settings, have yet to
 be implemented.  But it all kinda works :)
+
+
+----------------------------------------------------
+BUGS
+----------------------------------------------------
+
+There are a lot.  A big one right now is duplicate messages
+showing up and being printed.  Maybe CampfireClient could
+store the ID of the latest message, and compare it against any
+new ones before it notifies the MessageHandler?
+
+----------------------------------------------------
+TODO
+----------------------------------------------------
+
+Cleaning up the stuff that calls HtmlUnit classes.  I'm sure it
+could be a lot cleaner.
+
+The full range of Campfire actions - multiple rooms, people
+entering/leaving notifications, admin stuff, creating rooms,
+deleting rooms.
+
+Logging in as a Guest.
+
+A Javascript API, so one could write clients and bots in JavaScript
+and run them with Rhino.
+
+An IRC proxy/translator, that masqueraded as an IRC server but was
+really a CampfireClient.  Then, one could connect with IRC clients
+to Campfire rooms.  Eggdrop anyone?
