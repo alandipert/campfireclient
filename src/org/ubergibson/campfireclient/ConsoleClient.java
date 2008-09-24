@@ -69,7 +69,7 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
 
     //clear screen
     System.out.printf("%c[2J", 27);
-    System.out.printf("ConsoleClient %s\n", ccVersion);
+    System.out.printf("%c[31;40mConsoleClient %s%c[0m\n", 27, ccVersion, 27);
 
     if(useSSL) {
       System.out.println("Using SSL.");
