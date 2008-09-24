@@ -94,7 +94,7 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
     cc.logOut();
   } 
 
-  private void showCommands() {
+  private static void showCommands() {
     System.out.println("Available commands: /join <room>, /quit");
   }
 }
