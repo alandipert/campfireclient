@@ -6,8 +6,7 @@ Command-line client using the API
 QUICKSTART
 ----------------------------------------------------
 1. ant jar
-2. java -jar dist/campfireclient-0.1dev -u user@example.com
--p somepass -s campfireSubDomain [-S use SSL]
+2. ./client.sh -u user@example.com -p pass -s subdomain [-S use SSL]
 3. Presto!
 
 ----------------------------------------------------
