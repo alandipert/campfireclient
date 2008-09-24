@@ -6,7 +6,6 @@ import java.io.*;
 public class ConsoleClient extends CampfireClient implements MessageHandler {
 
   private static String ccVersion = "0.1dev";
-  private static String ccBuilt = "$Date:$";
 
   public ConsoleClient(String user, String pass, String sub, boolean ssl) throws Exception {
     super(user, pass, sub, ssl);
@@ -70,6 +69,7 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
 
     //clear screen
     System.out.printf("%c[2J", 27);
+    System.out.printf("ConsoleClient %s\n", ccVersion);
 
     if(useSSL) {
       System.out.println("Using SSL.");
