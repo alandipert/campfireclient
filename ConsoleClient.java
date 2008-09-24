@@ -27,10 +27,11 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
     String user;
     String pass;
     String subdomain;
+    String useSSL = "no";
     user = pass = subdomain = "";
 
     // parse command line parameters
-    Getopt g = new Getopt("ConsoleClient", args, "u:p:s:h");
+    Getopt g = new Getopt("ConsoleClient", args, "u:p:s:hS");
     int c;
     while ((c = g.getopt()) != -1) {
       switch (c) {
@@ -42,6 +43,9 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
           break;
         case 's':
           subdomain = String.valueOf(g.getOptarg());
+          break;
+        case 'S':
+          useSSL = String.valueOf(g.getOptarg());
           break;
         case 'h':
           // fall through
@@ -57,7 +61,18 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
       usage();
     }
 
-    ConsoleClient cc = new ConsoleClient(user, pass, subdomain, false);
+    boolean usingSSL = false;
+    if(useSSL != "no") {
+      usingSSL = true;
+    }
+
+    if(usingSSL) {
+      System.out.println("Using SSL.");
+    } else {
+      System.out.println("Not using SSL.");
+    }
+
+    ConsoleClient cc = new ConsoleClient(user, pass, subdomain, usingSSL);
 
     System.out.println("Now connected to \""+subdomain+"\"");
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
