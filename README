@@ -1,59 +1,43 @@
-README
-Alan Dipert <alan.dipert@gmail.com>
+----------------------------------------------------
+campfireclient-0.1dev
+Java API for connecting to Campfire
+----------------------------------------------------
+ABOUT
+----------------------------------------------------
+This package provides:
 
+- org.ubergibson.campfireclient.CampfireClient
+Connects to a Campfire server, and provides
+methods for doing things like joining rooms, collecting
+messages, and speaking.
+
+- org.ubergibson.campfireclient.ConsoleClient
+Simple command-line Campfire client; Extends CampfireClient
+and shows how one might use the API to create a new client.
+
+----------------------------------------------------
 QUICKSTART
+----------------------------------------------------
+1. ant jar
+2. java -jar dist/campfireclient-0.1dev -u user@example.com
+-p somepass -s campfireSubDomain [-S use SSL]
+3. Presto!
 
-So, this is all very early in development, but basically to 
-get it running, you need to do this:
-1. Download and install the latest HtmlUnit.  Make sure it 
-works, and that your CLASSPATH is square.
-2. Download and install gnu.getopt.Getopt.  Make sure it's 
-in your CLASSPATH.
-3. javac *.java
-4. "java ConsoleClient" and you'll see the options you need 
-to specify.
-5. And you're off!
+----------------------------------------------------
+TECHNICAL
+----------------------------------------------------
+This package depends heavily on HtmlUnit and its multitude
+of sub-dependencies; it works by emulating a browser,
+scraping things from the DOM.  ConsoleClient uses gnu's Java
+getOpt to parse command-line options.
 
-THE CLASSES
+It collects new messages by adding a hook into
+Campfire.Responders, which dispatches alerts().  HtmlUnit
+provides a mechanism for handlin alert events, and the
+client's ability to receive new messages is built on this.
 
-Right now CampfireClient does rudimentary things, and 
-ConsoleClient extends it.
-ConsoleClient is an example of how you might code future 
-clients.
-
-THE BASICS
-
-The functionality of CampfireClient is pretty limited.
-It works by basically screenscraping with HtmlUnit,
-a headless 'browser emulator.'
-
-It intercepts new messages by looking "hook.js,"
-which adds a class to Campfire.Responders.  This class
-listens for onMessagesInserted, and when it is called,
-it calls alert().
-
-HtmlUnit provides a mechanism for detecting and handling 
-alerts,
-and it is upon this functionality that CampfireClient is 
-able to
-get new messages.
-
-TODO
-
-There's a lot of things that could be implemented.  
-Currently:
-1. Message objects aren't really constructed correctly.
-2. It's kind of a big hack.
-3. It can't really handle being in more than one room.
-4. I'm working on getting a build.xml for Ant going.
-4. Much more.
-
-THANKS
-
-Thanks for downloading the software; I hope you're able to 
-do something cool with it.
-My dream is to have a CampfireClient that emulates an IRC 
-server, so I can use IRC clients
-(and bots) in Campfire chats.   
-Let me know if you want to be a part of the project: 
-alan.dipert@gmail.com
+The class tree is more or less built out, but little
+actually functions.  Advanced things like being in multiple
+rooms, receiving notifications about comings and goings of
+people in the room, and changing user settings, have yet to
+be implemented.  But it all kinda works :)

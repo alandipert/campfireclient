@@ -1,0 +1,101 @@
+<project name="campfireclient" default="compile" basedir=".">
+
+  <property file="build.properties"/>
+  <property file="${user.home}/build.properties"/>
+
+  <property name="app.name"             value="campfireclient"/>
+  <property name="app.version"          value="0.1-dev"/>
+  <property name="app.fullname"         value="${app.name}-${app.version}"/>
+
+  <property name="build.home"           value="${basedir}/build"/>
+  <property name="dist.home"            value="${basedir}/dist"/>
+  
+  <property name="docs.home"            value="${basedir}/docs"/>
+  <property name="src.home"             value="${basedir}/src"/>
+  <property name="lib.home"             value="${basedir}/lib"/>
+  <property name="etc.home"              value="${basedir}/etc"/>
+  <property name="js.home"              value="${src.home}/js"/>
+
+  <property name="jarfile.dist"   value="${dist.home}/${app.fullname}.jar"/>
+  <property name="zipfile.dist"   value="${dist.home}/${app.fullname}.zip"/>
+
+
+  <property name="compile.debug"        value="true"/>
+  <property name="compile.deprecation"  value="true"/>
+  <property name="compile.optimize"     value="true"/>
+  <property name="compile.mainclass"    value="org.ubergibson.campfireclient.ConsoleClient"/>
+
+  <!-- detect java version -->
+  <available property="jdk1.3+"         classname="java.lang.StrictMath"/>
+  <available property="jdk1.4+"         classname="java.lang.CharSequence"/>
+  <available property="jdk1.5+"         classname="java.lang.Readable"/>
+
+  <path id="compile.classpath">
+    <pathelement path="${src.home}"/>
+    <fileset dir="${lib.home}" includes="*.jar"/>
+  </path>
+
+  <target name="all" depends="clean,compile"
+    description="Clean build and dist directories, then compile"/>
+
+  <target name="clean" description="Delete build and dist directories">
+    <delete dir="${build.home}"/>
+    <delete dir="${dist.home}"/>
+  </target>
+
+  <target name="prepare" description="Create build and dist directories">
+    <!-- Create build directories as needed -->
+    <mkdir  dir="${build.home}"/>
+    <mkdir  dir="${dist.home}"/>
+  </target>
+
+  <target name="compile" depends="prepare" description="Compile Java sources">
+    <!-- Compile Java classes as necessary -->
+    <javac  srcdir="${src.home}"
+      destdir="${build.home}"
+      debug="${compile.debug}"
+      deprecation="${compile.deprecation}"
+      optimize="${compile.optimize}"
+      classpathref="compile.classpath">
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile" 
+    description="Create jar file of classes, resources, and dependencies">
+    <!-- Create application JAR file -->
+    <jar jarfile="${jarfile.dist}"
+      basedir="${build.home}"
+      index="true">
+      <manifest>
+        <attribute name="Built-By"               value="${user.name}"/>
+        <attribute name="Implementation-Vendor"  value="Ubergibson.com"/>
+        <attribute name="Implementation-Title"   value="CampfireClient"/>
+        <attribute name="Implementation-Version" value="0.1-dev"/>
+        <attribute name="Main-Class"             value="${compile.mainclass}"/>
+      </manifest>
+      <fileset          dir="${build.home}"/>
+      <fileset          dir="${js.home}"/>
+      <fileset          dir="${etc.home}"/>
+      <zipgroupfileset  dir="${lib.home}"/>
+    </jar>
+  </target>
+
+  <target name="javadoc" depends="compile" 
+    description="Create Javadoc API documentation">
+    <mkdir dir="${docs.home}/api"/>
+    <javadoc sourcepath="${src.home}" destdir="${docs.home}/api"
+      packagenames="*">
+      <classpath refid="compile.classpath"/>
+    </javadoc>
+  </target>
+
+  <target name="dist" depends="jar"
+    description="Create binary distribution">
+    <zip destfile="${dist.home}/${app.fullname}.zip">
+      <zipfileset file="${jarfile.dist}"    prefix="${app.fullname}"/>
+      <zipfileset  dir="${docs.home}"       prefix="${app.fullname}/docs"
+              excludes="api/**"/>
+    </zip>
+  </target>
+
+</project>
