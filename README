@@ -1,19 +1,22 @@
 ----------------------------------------------------
 campfireclient-0.1dev
-Java API for connecting to Campfire
+Java API for connecting to Campfire,
+Command-line client using the API 
 ----------------------------------------------------
 ABOUT
 ----------------------------------------------------
 This package provides:
 
 - org.ubergibson.campfireclient.CampfireClient
-Connects to a Campfire server, and provides
-methods for doing things like joining rooms, collecting
-messages, and speaking.
+
+  Connects to a Campfire server, and provides
+  methods for doing things like joining rooms, collecting
+  messages, and speaking.
 
 - org.ubergibson.campfireclient.ConsoleClient
-Simple command-line Campfire client; Extends CampfireClient
-and shows how one might use the API to create a new client.
+
+  Simple command-line Campfire client; Extends CampfireClient
+  and shows how one might use the API to create a new client.
 
 ----------------------------------------------------
 QUICKSTART
@@ -33,7 +36,7 @@ getOpt to parse command-line options.
 
 It collects new messages by adding a hook into
 Campfire.Responders, which dispatches alerts().  HtmlUnit
-provides a mechanism for handlin alert events, and the
+provides a mechanism for handling alert events, and the
 client's ability to receive new messages is built on this.
 
 The class tree is more or less built out, but little

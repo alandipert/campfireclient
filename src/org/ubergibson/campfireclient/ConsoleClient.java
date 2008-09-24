@@ -72,15 +72,15 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
     System.out.printf("%c[31;40mConsoleClient %s%c[0m\n", 27, ccVersion, 27);
 
     if(useSSL) {
-      System.out.println("Using SSL.");
+      System.out.println("> Using SSL.");
     } else {
-      System.out.println("Not using SSL.");
+      System.out.println("> Not using SSL.");
     }
 
-    System.out.println("Connecting...");
+    System.out.println("> Connecting...");
     ConsoleClient cc = new ConsoleClient(user, pass, subdomain, useSSL);
 
-    System.out.println("Now connected to \""+subdomain+".campfirenow.com\"");
+    System.out.println("> Now connected to \""+subdomain+".campfirenow.com\"");
     showCommands();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     String curLine = "";
@@ -88,9 +88,9 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
       if(curLine.startsWith("/quit")) {
         break;
       } else if(curLine.startsWith("/join")) {
-        System.out.println("Joining room...");
+        System.out.println("> Joining room...");
         cc.joinRoom(curLine.substring(6));
-        System.out.println("Now chatting in \""+curLine.substring(6)+"\"");
+        System.out.println("> Now chatting in \""+curLine.substring(6)+"\"");
       } else if(curLine.startsWith("/")) {
         showCommands();
       } else {
