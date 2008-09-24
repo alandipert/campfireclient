@@ -22,7 +22,7 @@ This package provides:
 
 - org.ubergibson.campfireclient.ConsoleClient
 
-  Simple command-line Campfire client; Extends CampfireClient
+  Simple command-line Campfire client; extends CampfireClient
   and shows how one might use the API to create a new client.
 
 ----------------------------------------------------
