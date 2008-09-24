@@ -1,0 +1,60 @@
+1. CampfireClient connects.
+2. Rooms are discovered or created.
+3. Rooms are joined.
+4. (MessageEvents from roomList continually received)
+5. Messages are sent.
+6. Rooms are left.
+7. CampfireClient disconnects.
+
+CampfireClient
+  - Members
+    String username
+    String password
+    String subdomain
+    boolean useSSL
+    Room currentRoom
+    
+  - Methods
+    logIn()
+    logOut()
+    ArrayList<Room> getRoomList()
+    Room getRoomByName(String name)
+    ArrayList<Room> getInRoomsList()
+    boolean createRoom(String name)
+    joinRoom(Room)
+    leaveRoom(Room)
+    sendMessage(String msg)
+    sendPaste(String paste)
+
+Room
+  - Members
+    String name
+    String topic
+    String id - /room/125125/
+    
+  - Methods
+    getPeople()
+    getMessageList()
+    getMessagesByPerson()
+    
+MessageEvent
+  - Members
+    Message newMessage
+  
+PersonEvent
+  - int eventType
+    - PERSON_LEFT
+    - PERSON_ENTERED
+  - Members
+    Person thePerson
+  
+Person
+  - Members
+    String nick
+    String id
+
+Message
+  - Members
+    Date time
+    Person from
+    String message
