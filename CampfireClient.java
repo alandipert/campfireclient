@@ -64,9 +64,12 @@ public class CampfireClient implements AlertHandler {
     if(messageHandler == null)
       return;
 
-    Person newPerson = new Person("Somebody", 0); 
-    Message retMsg = new Message(message, newPerson, "");  
-    messageHandler.handleMessage(retMsg);
+    if(message.startsWith("CampfireMessage")) {
+      String msgParts[] = message.split("!@@@!");
+      Person newPerson = new Person(msgParts[2], 0); 
+      Message retMsg = new Message(msgParts[3], newPerson, "");  
+      messageHandler.handleMessage(retMsg);
+    }
   }
 
   public void setMessageHandler(MessageHandler mHandler) {
@@ -78,7 +81,6 @@ public class CampfireClient implements AlertHandler {
     for(int i = 0; i < links.getLength(); i++) {
       if(links.item(i).getTextContent().matches(".*Leave.*")) {
         HtmlAnchor logoutLink = (HtmlAnchor)links.item(i);
-        System.out.println(logoutLink);
         logoutLink.click();
         break;
       }
@@ -90,7 +92,6 @@ public class CampfireClient implements AlertHandler {
     for(int i = 0; i < links.getLength(); i++) {
       if(links.item(i).getTextContent().matches(".*Logout.*")) {
         HtmlAnchor logoutLink = (HtmlAnchor)links.item(i);
-        System.out.println(logoutLink);
         logoutLink.click();
         break;
       }

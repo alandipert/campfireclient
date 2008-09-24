@@ -3,28 +3,17 @@ import java.io.*;
 
 public class ConsoleClient extends CampfireClient implements MessageHandler {
 
-  private String lastMessage;
-
   public ConsoleClient(String user, String pass, String sub, boolean ssl) throws Exception {
     super(user, pass, sub, ssl);
     super.setMessageHandler(this);
-    lastMessage = "";
   }
 
   public void handleMessage(Message newMsg) {
-    System.out.println("Message: "+newMsg.getMessage());
-    if(!newMsg.getMessage().matches(".*Robot.*")) {
-      try {
-        sendMessage("Somebody said "+newMsg.getMessage());
-        lastMessage = newMsg.getMessage();
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+    try {
+      System.out.println(newMsg.getFrom().getName()+": "+newMsg.getMessage());
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-  }
-
-  public String getLastMessage() {
-    return lastMessage;
   }
 
   private static void usage() {
@@ -69,11 +58,19 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
     }
 
     ConsoleClient cc = new ConsoleClient(user, pass, subdomain, false);
-    cc.joinRoom("Bots");
-    cc.sendMessage("sup");
 
-    while(!cc.lastMessage.matches(".*go.*away.*robot.*")) {
-      //chill in the room
+    System.out.println("Now connected to \""+subdomain+"\"");
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String curLine = "";
+    while((curLine = br.readLine()) != null) {
+      if(curLine.startsWith("/quit")) {
+        break;
+      } else if(curLine.startsWith("/join")) {
+        cc.joinRoom(curLine.substring(6));
+        System.out.println("Now chatting in \""+curLine.substring(6)+"\"");
+      } else {
+        cc.sendMessage(curLine);
+      }
     }
 
     cc.leaveCurrentRoom();

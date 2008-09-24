@@ -2,7 +2,6 @@ var alreadyHooked = false;
 for(var i = 0; i < Campfire.Responders.length; i++) {
   if(Campfire.Responders[i] == "Hook") {
     alreadyHooked = true;
-    alert("already hooked");
     break;
   }
 }
@@ -21,7 +20,7 @@ if(!alreadyHooked) {
           var msg = message.bodyElement().innerHTML.unescapeHTML();
           var id = message.id();
           var author = message.author();
-          alert("CampfireMessage|"+id+"|"+author+"|"+msg);
+          alert("CampfireMessage!@@@!"+id+"!@@@!"+author+"!@@@!"+msg);
         }
       }
     }
