@@ -12,7 +12,9 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
 
   public void handleMessage(Message newMsg) {
     try {
-      System.out.println(newMsg.getFrom().getName()+": "+newMsg.getMessage());
+      int ASCII_ESCAPE = 27;
+      System.out.printf("%c[34;47m%s%c[0m: %s\n", ASCII_ESCAPE, newMsg.getFrom().getName(), ASCII_ESCAPE, newMsg.getMessage());
+      //System.out.println(newMsg.getFrom().getName()+": "+newMsg.getMessage());
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -72,15 +74,18 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
       System.out.println("Not using SSL.");
     }
 
+    System.out.println("Connecting...");
     ConsoleClient cc = new ConsoleClient(user, pass, subdomain, useSSL);
 
     System.out.println("Now connected to \""+subdomain+".campfirenow.com\"");
+    showCommands();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     String curLine = "";
     while((curLine = br.readLine()) != null) {
       if(curLine.startsWith("/quit")) {
         break;
       } else if(curLine.startsWith("/join")) {
+        System.out.println("Joining room...");
         cc.joinRoom(curLine.substring(6));
         System.out.println("Now chatting in \""+curLine.substring(6)+"\"");
       } else if(curLine.startsWith("/")) {
