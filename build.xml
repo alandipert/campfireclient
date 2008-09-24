@@ -89,7 +89,7 @@
     </javadoc>
   </target>
 
-  <target name="dist" depends="jar"
+  <target name="dist" depends="jar,javadoc"
     description="Create binary distribution">
     <zip destfile="${dist.home}/${app.fullname}.zip">
       <zipfileset file="${jarfile.dist}"    prefix="${app.fullname}"/>
