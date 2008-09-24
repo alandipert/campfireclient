@@ -10,6 +10,13 @@ QUICKSTART
 3. Presto!
 
 ----------------------------------------------------
+REQUIREMENTS
+----------------------------------------------------
+Java 1.5+
+Ant 1.7+
+HtmlUnit and its dependencies are packaged up in /lib.
+
+----------------------------------------------------
 OVERVIEW
 ----------------------------------------------------
 This package provides:
