@@ -5,6 +5,9 @@ import java.io.*;
 
 public class ConsoleClient extends CampfireClient implements MessageHandler {
 
+  private static String ccVersion = "0.1dev";
+  private static String ccBuilt = "$Date:$";
+
   public ConsoleClient(String user, String pass, String sub, boolean ssl) throws Exception {
     super(user, pass, sub, ssl);
     super.setMessageHandler(this);
@@ -33,9 +36,6 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
     String subdomain;
     user = pass = subdomain = "";
     boolean useSSL = false;
-
-    //shuts up log4j
-    System.getProperties().put("org.apache.commons.logging.simplelog.defaultlog", "fatal");
 
     // parse command line parameters
     Getopt g = new Getopt("ConsoleClient", args, "u:p:s:hS");
@@ -67,6 +67,9 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
       System.out.println("Error: missing required arguments.");
       usage();
     }
+
+    //clear screen
+    System.out.printf("%c[2J", 27);
 
     if(useSSL) {
       System.out.println("Using SSL.");
