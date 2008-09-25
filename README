@@ -55,7 +55,6 @@ be implemented.  But it all kinda works :)
 ----------------------------------------------------
 BUGS
 ----------------------------------------------------
-
 There are a lot.  A big one right now is duplicate messages
 showing up and being printed.  Maybe CampfireClient could
 store the ID of the latest message, and compare it against any
@@ -64,7 +63,6 @@ new ones before it notifies the MessageHandler?
 ----------------------------------------------------
 TODO
 ----------------------------------------------------
-
 Cleaning up the stuff that calls HtmlUnit classes.  I'm sure it
 could be a lot cleaner.
 
