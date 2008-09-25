@@ -22,7 +22,6 @@
 
   <property name="compile.debug"        value="true"/>
   <property name="compile.deprecation"  value="true"/>
-  <property name="compile.optimize"     value="true"/>
   <property name="compile.mainclass"    value="org.ubergibson.campfireclient.ConsoleClient"/>
 
   <!-- detect java version -->
@@ -55,7 +54,6 @@
       destdir="${build.home}"
       debug="${compile.debug}"
       deprecation="${compile.deprecation}"
-      optimize="${compile.optimize}"
       classpathref="compile.classpath">
     </javac>
   </target>
