@@ -15,6 +15,7 @@ public class ConsoleClient extends CampfireClient implements MessageHandler {
   public void handleMessage(Message newMsg) {
     try {
       int ASCII_ESCAPE = 27;
+      System.out.printf("%c%c", ASCII_ESCAPE, 7);
       System.out.printf("%c[34;47m%s%c[0m: %s\n", ASCII_ESCAPE, newMsg.getFrom().getName(), ASCII_ESCAPE, newMsg.getMessage());
       //System.out.println(newMsg.getFrom().getName()+": "+newMsg.getMessage());
     } catch (Exception e) {
