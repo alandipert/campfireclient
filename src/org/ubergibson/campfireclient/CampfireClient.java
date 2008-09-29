@@ -24,6 +24,8 @@ public class CampfireClient implements AlertHandler {
   private HtmlPage currentPage;
   private Room currentRoom;
   private MessageHandler messageHandler;
+
+  private Message lastMessage;
   
   public CampfireClient(String newUser, String newPass, String newUrl, boolean useSSL) throws Exception {
 
@@ -31,6 +33,8 @@ public class CampfireClient implements AlertHandler {
     loginPass = newPass;
 
     messageHandler = null;
+
+    lastMessage = null;
 
     if(useSSL) {
       campfireUrl = "http://"+newUrl+"."+CAMPFIRE_DOMAIN;
@@ -74,7 +78,15 @@ public class CampfireClient implements AlertHandler {
       String msgParts[] = message.split("!@@@!");
       Person newPerson = new Person(msgParts[2], 0); 
       Message retMsg = new Message(msgParts[3], newPerson, "");  
-      messageHandler.handleMessage(retMsg);
+      if(lastMessage != null) {
+        if(!(lastMessage.getMessage() == retMsg.getMessage() && lastMessage.getFrom().getName() == retMsg.getFrom().getName())) {
+          lastMessage = retMsg;
+          messageHandler.handleMessage(retMsg);
+        }
+      } else {
+        lastMessage = retMsg;
+        messageHandler.handleMessage(retMsg);
+      }
     }
   }
 
